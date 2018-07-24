@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  user: vagrant
+  roles:
+    - common
+  # environment:
+  #   https_proxy: "{{ lookup('env', 'https_proxy') }}"
+
+- hosts: webservers
+  become: yes
+  become_user: root
+  user: vagrant
+  roles:
+    - apache2
+    - python3
+    - app_pip
+    - mod_wsgi3
+    - mysql/client
+
+- hosts: dbs
+  become: yes
+  become_user: root
+  user: vagrant
+  roles:
+    - mysql/server

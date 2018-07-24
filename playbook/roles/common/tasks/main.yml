@@ -1,0 +1,19 @@
+---
+
+- include_vars: main.yml
+
+- name: Only run "update_cache=yes" if the last one is more than 3600 seconds ago
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    
+- name: create group
+  group: name=developer gid=2000
+
+- name: add users that join to group (wheel and usergroup)
+  user: name=developer uid=4519 state=present password=$6j1bRZutkD4U groups=developer
+  # password python -c 'import crypt; print crypt.crypt("developer", "$6$hogehoge$")'
+
+- name: set hostname
+  hostname:
+    name: "{{ inventory_hostname }}"

@@ -1,0 +1,10 @@
+---
+
+- include_vars: main.yml
+
+- name: install MySQL Client packages
+  apt: 
+    name: "{{ item }}"
+    install_recommends: yes
+    state: present
+  with_items: "{{mysql_client_packages}}"

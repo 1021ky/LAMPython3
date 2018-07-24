@@ -1,0 +1,11 @@
+provisioner ansible_connection=local
+
+[webservers]
+web ansible_ssh_host=192.168.20.10 ansible_ssh_private_key_file=/vagrant/.vagrant/machines/web/virtualbox/private_key
+
+[dbs]
+db ansible_ssh_host=192.168.20.11 ansible_ssh_private_key_file=/vagrant/.vagrant/machines/db/virtualbox/private_key
+
+[common:children]
+webservers
+dbs

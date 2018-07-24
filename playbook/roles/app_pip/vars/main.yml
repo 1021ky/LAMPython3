@@ -1,0 +1,6 @@
+---
+
+pip_packages: 
+- { name: pyyaml, version: '3.12' }
+- { name: bottle, version: '0.11.7' }
+- { name: sqlalchemy, version: '1.2.8' }

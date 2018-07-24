@@ -1,0 +1,6 @@
+---
+APACHE_LOG_DIR: "/var/log/apache2"
+apache2_packages:
+- apache2-utils
+- libexpat1
+- ssl-cert

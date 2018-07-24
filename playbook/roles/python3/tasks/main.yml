@@ -1,0 +1,23 @@
+---
+
+- include_vars: main.yml
+
+- name: install python3 packages
+  become: yes          
+  apt: 
+    name: "{{ item }}"
+    install_recommends: yes
+    autoremove: yes
+    state: present
+  with_items: "{{python3_packages}}"
+
+# install pip
+- name: Download pip installer
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: /usr/src/
+  become: yes
+
+- name: install pip
+  command: python3 /usr/src/get-pip.py
+  become: yes

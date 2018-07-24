@@ -102,3 +102,23 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# vscode
+.vscode/
+
+# ansible
+*.retry
+
+# ubuntu log
+ubuntu.*.log
+# log
+log/
+
+# www
+www/*
+!index.html
+!sample.wsgi
+!sampledb.wsgi
+
+# vagrant
+.vagrant/

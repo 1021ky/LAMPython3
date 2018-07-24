@@ -1,0 +1,4 @@
+---
+
+mod_wsgi_packages:
+- libapache2-mod-wsgi-py3

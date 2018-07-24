@@ -1,0 +1,44 @@
+---
+
+- include_vars: main.yml
+
+- name: install MySQL Server packages
+  apt: 
+    name: "{{ item }}"
+    install_recommends: yes
+    state: present
+  with_items: "{{mysql_server_packages}}"
+
+- name: set my.cnf
+  template: 
+    src: /vagrant/playbook/roles/mysql/server/templates/my.cnf.j2
+    dest: /etc/mysql/my.cnf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start the MySQL service
+  become: yes
+  service: 
+    name: mysql 
+    state: started
+    enabled: true
+
+- name: create mysql user
+  mysql_user: 
+    name: "{{ mysql_user }}"
+    host: "{{ item }}"
+    password: "{{ mysql_password }}"
+    priv: '*.*:ALL,GRANT'
+    state: present
+  with_items:
+    - localhost
+    - 192.168.20.10
+  notify: restart_mysql
+
+- name: Import file.sql similar to mysql -u <username> -p <password> < hostname.sql
+  mysql_db:
+    state: import
+    name: all
+    target: /vagrant/playbook/roles/mysql/server/files/sample_db.sql
+    
